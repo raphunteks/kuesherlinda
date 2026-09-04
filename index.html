@@ -241,9 +241,147 @@
       margin-bottom: 14px;
     }
 
-    .select-dropdown-wrapper {
+    .searchable-select-container {
       position: relative;
       width: 100%;
+    }
+
+    .search-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      font-size: 16px;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .search-box-input {
+      padding-left: 42px !important;
+      padding-right: 42px !important;
+      cursor: text;
+    }
+
+    .btn-clear-search {
+      position: absolute;
+      right: 12px;
+      background: #E5E7EB;
+      border: 2px solid var(--color-black);
+      box-shadow: 1.5px 1.5px 0px var(--color-black);
+      border-radius: 50%;
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+      z-index: 2;
+      transition: all 0.1s ease;
+      color: #121212;
+    }
+
+    .btn-clear-search:hover {
+      background: var(--color-pink);
+      color: #FFFFFF;
+      transform: scale(1.05);
+    }
+
+    .dropdown-list-box {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      background: #FFFFFF;
+      border: var(--border-thick);
+      box-shadow: var(--shadow-card);
+      border-radius: var(--radius-md);
+      z-index: 99;
+      max-height: 280px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dropdown-count-header {
+      padding: 9px 12px;
+      background: #FEF08A;
+      border-bottom: 2px solid var(--color-black);
+      font-size: 12px;
+      font-weight: 800;
+      color: #121212;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .dropdown-items-scroll {
+      overflow-y: auto;
+      max-height: 230px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .dropdown-item {
+      padding: 12px 14px;
+      border-bottom: 1.5px solid #E5E7EB;
+      cursor: pointer;
+      transition: background 0.12s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .dropdown-item:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-item:hover, .dropdown-item.active-focus {
+      background: #F0FDF4;
+    }
+
+    .dropdown-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dropdown-item-name {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--color-black);
+    }
+
+    .dropdown-item-badge {
+      background: var(--color-cyan);
+      border: 1.5px solid var(--color-black);
+      box-shadow: 1.5px 1.5px 0px var(--color-black);
+      padding: 2px 7px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .dropdown-item-sub {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #4B5563;
+    }
+
+    .dropdown-item-empty {
+      padding: 18px 14px;
+      text-align: center;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #6B7280;
     }
 
     .verified-banner {
@@ -731,19 +869,38 @@
       </p>
     </div>
 
-    <!-- Kotak Verifikasi & Pemilihan Responden Post-Test Otomatis -->
+    <!-- Kotak Verifikasi & Pencarian Responden Post-Test (Search Box + Dropdown) -->
     <div class="verify-box" id="postVerifyContainer" style="display: none;">
       <div class="verify-title">
-        <span>🔍</span> Pilih Nama Responden Pre-Test
+        <span>🔍</span> Cari & Pilih Nama Responden Pre-Test
       </div>
       <p class="verify-desc">
-        Pilih nama Anda di bawah ini. Data profil akan terisi secara otomatis tanpa perlu mengetik ulang.
+        Ketik atau pilih Nama Orang Tua, Nama Anak, atau ID Responden Anda. Seluruh data profil akan terisi secara otomatis tanpa perlu mengetik ulang.
       </p>
       
-      <div class="select-dropdown-wrapper">
-        <select id="postRespondentSelect" class="select-input" onchange="handleRespondentSelect(this.value)">
-          <option value="">-- Memuat Daftar Responden Pre-Test... --</option>
-        </select>
+      <!-- Input Search Box + Interactive Dropdown -->
+      <div class="searchable-select-container" id="searchableDropdownWrapper">
+        <div class="search-input-wrapper">
+          <span class="search-icon">🔎</span>
+          <input 
+            type="text" 
+            id="respondentSearchInput" 
+            class="text-input search-box-input" 
+            placeholder="Ketik Nama Orang Tua / Nama Anak / ID Responden..." 
+            autocomplete="off"
+            oninput="handleSearchInput(this.value)"
+            onfocus="openDropdownList()"
+          >
+          <button type="button" id="btnClearSearch" class="btn-clear-search" onclick="clearSearchInput()" style="display: none;" title="Hapus Pencarian">✕</button>
+        </div>
+
+        <div id="respondentDropdownMenu" class="dropdown-list-box" style="display: none;">
+          <div id="dropdownListCount" class="dropdown-count-header">
+            <span>Daftar Responden Pre-Test</span>
+            <span id="badgePendingCount" style="font-size: 11px; background: #fff; padding: 2px 7px; border: 1.5px solid #121212; border-radius: 99px;">0 Responden</span>
+          </div>
+          <div id="dropdownItemsContainer" class="dropdown-items-scroll"></div>
+        </div>
       </div>
 
       <div id="verifiedStatusBox" class="verified-banner" style="display: none;">
@@ -993,6 +1150,7 @@
     var currentActiveMode = 'PRE';
     var isPostVerified = false;
     var cachedPendingRespondents = [];
+    var currentFilteredRespondents = [];
 
     function renderQuestionList() {
       var container = document.getElementById('questionsContainer');
@@ -1108,18 +1266,21 @@
     }
 
     function loadPendingPostTestRespondents() {
-      var selectEl = document.getElementById('postRespondentSelect');
-      selectEl.innerHTML = '<option value="">-- Memuat Daftar Responden Pre-Test... --</option>';
+      var badgeEl = document.getElementById('badgePendingCount');
+      var container = document.getElementById('dropdownItemsContainer');
+      badgeEl.innerText = 'Memuat...';
+      container.innerHTML = '<div class="dropdown-item-empty">⏳ Memuat daftar responden Pre-Test...</div>';
 
       var isDirectGAS = (typeof google !== 'undefined' && google.script && typeof google.script.run !== 'undefined');
 
       if (isDirectGAS) {
         google.script.run
           .withSuccessHandler(function(res) {
-            populateRespondentDropdown(res);
+            setupPendingRespondentsData(res);
           })
           .withFailureHandler(function(err) {
-            selectEl.innerHTML = '<option value="">-- Gagal memuat daftar responden --</option>';
+            badgeEl.innerText = 'Gagal';
+            container.innerHTML = '<div class="dropdown-item-empty">❌ Gagal memuat: ' + (err.message || err.toString()) + '</div>';
             showToast('Kendala memuat daftar: ' + err.message);
           })
           .getPendingPostTestRespondentsGAS();
@@ -1131,10 +1292,10 @@
         })
         .then(function(res) { return res.json(); })
         .then(function(data) {
-          populateRespondentDropdown(data);
+          setupPendingRespondentsData(data);
         })
         .catch(function(err) {
-          // Preview Canvas Simulation
+          // Fallback data simulasi saat preview Canvas
           var mockData = {
             status: 'success',
             data: [
@@ -1164,46 +1325,106 @@
               }
             ]
           };
-          populateRespondentDropdown(mockData);
+          setupPendingRespondentsData(mockData);
         });
       }
     }
 
-    function populateRespondentDropdown(response) {
-      var selectEl = document.getElementById('postRespondentSelect');
-      selectEl.innerHTML = '';
-
+    function setupPendingRespondentsData(response) {
       if (response && response.status === 'success' && response.data && response.data.length > 0) {
         cachedPendingRespondents = response.data;
-        var defaultOpt = document.createElement('option');
-        defaultOpt.value = '';
-        defaultOpt.innerText = '-- Pilih Nama Orang Tua & Nama Anak (' + response.data.length + ' Responden) --';
-        selectEl.appendChild(defaultOpt);
-
-        for (var i = 0; i < response.data.length; i++) {
-          var item = response.data[i];
-          var opt = document.createElement('option');
-          opt.value = item.respondentId;
-          opt.innerText = item.displayText || ('Nama Ortu: ' + item.name + ' - Nama Anak: ' + item.childName);
-          selectEl.appendChild(opt);
-        }
+        currentFilteredRespondents = response.data.slice();
       } else {
         cachedPendingRespondents = [];
-        var emptyOpt = document.createElement('option');
-        emptyOpt.value = '';
-        emptyOpt.innerText = '-- Semua Responden Telah Mengisi Post-Test --';
-        selectEl.appendChild(emptyOpt);
+        currentFilteredRespondents = [];
       }
+      renderDropdownItems(currentFilteredRespondents);
     }
 
-    function handleRespondentSelect(selectedId) {
-      if (!selectedId) {
-        resetProfileInputs();
-        lockProfileInputs();
-        isPostVerified = false;
-        document.getElementById('verifiedStatusBox').style.display = 'none';
+    function renderDropdownItems(list) {
+      var container = document.getElementById('dropdownItemsContainer');
+      var badgeEl = document.getElementById('badgePendingCount');
+
+      badgeEl.innerText = list.length + ' Responden';
+
+      if (!list || list.length === 0) {
+        if (cachedPendingRespondents.length === 0) {
+          container.innerHTML = '<div class="dropdown-item-empty">Semua responden telah mengisi Post-Test.</div>';
+        } else {
+          container.innerHTML = '<div class="dropdown-item-empty">Tidak ada responden yang cocok dengan kata kunci.</div>';
+        }
         return;
       }
+
+      var html = '';
+      for (var i = 0; i < list.length; i++) {
+        var item = list[i];
+        html += '<div class="dropdown-item" onclick="selectRespondentItem(\'' + item.respondentId + '\')">';
+        html += '  <div class="dropdown-item-header">';
+        html += '    <div class="dropdown-item-name">👨‍👩‍👧 ' + (item.name || '-') + '</div>';
+        html += '    <span class="dropdown-item-badge">' + (item.respondentId || '-') + '</span>';
+        html += '  </div>';
+        html += '  <div class="dropdown-item-sub">👶 Anak: <strong>' + (item.childName || '-') + '</strong> | Peran: ' + (item.parentRole || '-') + '</div>';
+        html += '</div>';
+      }
+
+      container.innerHTML = html;
+    }
+
+    function handleSearchInput(keyword) {
+      var cleanKeyword = (keyword || '').toLowerCase().trim();
+      var btnClear = document.getElementById('btnClearSearch');
+
+      if (cleanKeyword.length > 0) {
+        btnClear.style.display = 'flex';
+      } else {
+        btnClear.style.display = 'none';
+      }
+
+      openDropdownList();
+
+      if (!cleanKeyword) {
+        currentFilteredRespondents = cachedPendingRespondents.slice();
+      } else {
+        currentFilteredRespondents = cachedPendingRespondents.filter(function(item) {
+          var name = (item.name || '').toLowerCase();
+          var child = (item.childName || '').toLowerCase();
+          var id = (item.respondentId || '').toLowerCase();
+          return (name.indexOf(cleanKeyword) !== -1 || child.indexOf(cleanKeyword) !== -1 || id.indexOf(cleanKeyword) !== -1);
+        });
+      }
+
+      renderDropdownItems(currentFilteredRespondents);
+    }
+
+    function clearSearchInput() {
+      var searchInput = document.getElementById('respondentSearchInput');
+      searchInput.value = '';
+      document.getElementById('btnClearSearch').style.display = 'none';
+      currentFilteredRespondents = cachedPendingRespondents.slice();
+      renderDropdownItems(currentFilteredRespondents);
+      searchInput.focus();
+    }
+
+    function openDropdownList() {
+      document.getElementById('respondentDropdownMenu').style.display = 'flex';
+    }
+
+    function closeDropdownList() {
+      document.getElementById('respondentDropdownMenu').style.display = 'none';
+    }
+
+    // Tutup dropdown saat klik di luar kotak pencarian
+    document.addEventListener('click', function(e) {
+      var wrapper = document.getElementById('searchableDropdownWrapper');
+      if (wrapper && !wrapper.contains(e.target)) {
+        closeDropdownList();
+      }
+    });
+
+    function selectRespondentItem(selectedId) {
+      closeDropdownList();
+      if (!selectedId) return;
 
       var matched = null;
       for (var i = 0; i < cachedPendingRespondents.length; i++) {
@@ -1214,6 +1435,9 @@
       }
 
       if (matched) {
+        document.getElementById('respondentSearchInput').value = 'Nama Ortu: ' + matched.name + ' - Nama Anak: ' + matched.childName;
+        document.getElementById('btnClearSearch').style.display = 'flex';
+
         document.getElementById('verifiedRespondentId').value = matched.respondentId;
         document.getElementById('parentName').value = matched.name || '';
         document.getElementById('parentAge').value = matched.age || '';
@@ -1238,7 +1462,7 @@
         document.getElementById('verifiedIdText').innerText = matched.respondentId;
         document.getElementById('verifiedStatusBox').style.display = 'flex';
 
-        showToast('Profil terisi otomatis: ' + matched.name + ' (' + matched.childName + ')');
+        showToast('Profil terverifikasi & terisi otomatis: ' + matched.name + ' (' + matched.childName + ')');
         document.getElementById('questionsSection').scrollIntoView({ behavior: 'smooth' });
       }
     }
@@ -1287,6 +1511,8 @@
 
     function resetProfileInputs() {
       document.getElementById('verifiedRespondentId').value = '';
+      document.getElementById('respondentSearchInput').value = '';
+      document.getElementById('btnClearSearch').style.display = 'none';
       document.getElementById('parentName').value = '';
       document.getElementById('parentAge').value = '';
       document.getElementById('parentAddress').value = '';
@@ -1318,7 +1544,7 @@
       if (document.getElementById('roleAyah').checked) parentRole = 'Ayah';
 
       if (testType === 'POST' && (!isPostVerified || !verifiedId)) {
-        showToast('Silakan pilih nama Anda pada daftar responden Pre-Test terlebih dahulu.');
+        showToast('Silakan cari dan pilih nama Anda pada daftar responden Pre-Test terlebih dahulu.');
         document.getElementById('postVerifyContainer').scrollIntoView({ behavior: 'smooth' });
         return;
       }
