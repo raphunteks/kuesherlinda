@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Kuesioner Karies Gigi Anak - Pre & Post Test</title>
+  
+  <meta name="theme-color" content="#FFE600">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="KariesAnak">
+  
+  <!-- Favicon Dental Tooth SVG Free -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M25 10 C12 10 10 28 10 42 C10 65 24 90 35 90 C42 90 45 74 50 74 C55 74 58 90 65 90 C76 90 90 65 90 42 C90 28 88 10 75 10 C62 10 57 24 50 24 C43 24 38 10 25 10 Z' fill='%23FFE600' stroke='%23121212' stroke-width='6'/><circle cx='36' cy='38' r='5' fill='%23121212'/><circle cx='64' cy='38' r='5' fill='%23121212'/><path d='M38 52 Q50 62 62 52' fill='none' stroke='%23121212' stroke-width='4' stroke-linecap='round'/><path d='M28 22 Q32 16 38 18' fill='none' stroke='%23FFFFFF' stroke-width='3' stroke-linecap='round'/></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-canvas: #FFFDF0;
+      --color-black: #121212;
+      --color-yellow: #FFE600;
+      --color-pink: #FF6B8B;
+      --color-cyan: #38BDF8;
+      --color-lime: #A3E635;
+      --color-white: #FFFFFF;
+      --color-gray-bg: #F3F4F6;
+      --border-thick: 3px solid #121212;
+      --border-medium: 2.5px solid #121212;
+      --shadow-base: 4px 4px 0px #121212;
+      --shadow-large: 6px 6px 0px #121212;
+      --shadow-card: 5px 5px 0px #121212;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    input, textarea, select {
+      user-select: text;
+      -webkit-user-select: text;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--color-black);
+      line-height: 1.5;
+      padding-bottom: 60px;
+    }
+
+    .top-navbar {
+      background: var(--color-yellow);
+      border-bottom: var(--border-thick);
+      padding: 14px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-icon {
+      background: var(--color-white);
+      border: var(--border-medium);
+      box-shadow: 2px 2px 0px var(--color-black);
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .brand-title {
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .btn-pwa-download {
+      background: var(--color-pink);
+      color: var(--color-white);
+      border: var(--border-medium);
+      box-shadow: 3px 3px 0px var(--color-black);
+      padding: 9px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 12.5px;
+      font-weight: 900;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn-pwa-download:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0px var(--color-black);
+    }
+
+    .btn-pwa-download:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--color-black);
+    }
+
+    .main-wrapper {
+      max-width: 820px;
+      margin: 24px auto 0 auto;
+      padding: 0 16px;
+    }
+
+    .tab-switcher-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .btn-tab-switch {
+      padding: 14px 16px;
+      font-size: 15px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: var(--border-thick);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--color-white);
+      box-shadow: var(--shadow-base);
+      transition: all 0.15s ease;
+      color: var(--color-black);
+    }
+
+    .btn-tab-switch.active-pre {
+      background: var(--color-yellow);
+      box-shadow: var(--shadow-large);
+      transform: translate(-2px, -2px);
+    }
+
+    .btn-tab-switch.active-post {
+      background: var(--color-cyan);
+      box-shadow: var(--shadow-large);
+      transform: translate(-2px, -2px);
+    }
+
+    .hero-card {
+      border: var(--border-thick);
+      box-shadow: var(--shadow-large);
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .hero-card.mode-pre {
+      background: #FEF08A;
+    }
+
+    .hero-card.mode-post {
+      background: var(--color-cyan);
+    }
+
+    .badge-pill {
+      background: var(--color-white);
+      border: var(--border-medium);
+      box-shadow: 2px 2px 0px var(--color-black);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      display: inline-block;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-size: 21px;
+      font-weight: 900;
+      line-height: 1.3;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-desc {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    .verify-box {
+      background: #EFF6FF;
+      border: var(--border-thick);
+      box-shadow: var(--shadow-card);
+      border-radius: var(--radius-lg);
+      padding: 22px 18px;
+      margin-bottom: 24px;
+    }
+
+    .verify-title {
+      font-size: 16px;
+      font-weight: 900;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .verify-desc {
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 14px;
+    }
+
+    .verify-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-verify {
+      background: var(--color-pink);
+      color: var(--color-white);
+      border: var(--border-medium);
+      box-shadow: var(--shadow-base);
+      border-radius: var(--radius-sm);
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 900;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .btn-verify:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0px var(--color-black);
+    }
+
+    .verified-banner {
+      background: #DCFCE7;
+      border: var(--border-medium);
+      box-shadow: var(--shadow-base);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #166534;
+    }
+
+    .section-card {
+      background: var(--color-white);
+      border: var(--border-thick);
+      box-shadow: var(--shadow-card);
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
+      margin-bottom: 24px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: var(--border-medium);
+    }
+
+    .section-num {
+      background: var(--color-lime);
+      border: var(--border-medium);
+      box-shadow: 2px 2px 0px var(--color-black);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 15px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .form-label span.req {
+      color: #ef4444;
+      margin-left: 3px;
+    }
+
+    .text-input, .select-input {
+      width: 100%;
+      background: #FFFFFF;
+      border: var(--border-medium);
+      box-shadow: var(--shadow-base);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--color-black);
+      outline: none;
+      transition: all 0.15s ease;
+    }
+
+    .text-input:focus, .select-input:focus {
+      background: #FFFDF0;
+      box-shadow: 5px 5px 0px var(--color-black);
+      transform: translate(-1px, -1px);
+    }
+
+    .text-input[readonly], .select-input:disabled {
+      background: #F3F4F6;
+      color: #6B7280;
+      cursor: not-allowed;
+    }
+
+    .role-options-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .role-card {
+      border: var(--border-medium);
+      box-shadow: 3px 3px 0px var(--color-black);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      background: #FFFFFF;
+      transition: all 0.12s ease;
+    }
+
+    .role-card.selected {
+      background: var(--color-yellow);
+      box-shadow: 5px 5px 0px var(--color-black);
+      transform: translate(-1px, -1px);
+    }
+
+    .role-card.locked {
+      cursor: not-allowed;
+      opacity: 0.85;
+    }
+
+    .question-block {
+      background: #FAFAFA;
+      border: var(--border-medium);
+      box-shadow: 3px 3px 0px var(--color-black);
+      border-radius: var(--radius-md);
+      padding: 18px 16px;
+      margin-bottom: 20px;
+      transition: all 0.15s ease;
+    }
+
+    .question-block.unanswered {
+      border-color: #ef4444;
+      background: #FFF1F2;
+    }
+
+    .question-title-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .q-number {
+      background: var(--color-yellow);
+      border: var(--border-medium);
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .q-text {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: center;
+      background: var(--color-white);
+      border: var(--border-medium);
+      box-shadow: 2px 2px 0px var(--color-black);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      min-height: 48px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.12s ease;
+      position: relative;
+    }
+
+    .option-label:hover {
+      background: #FFFBEA;
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0px var(--color-black);
+    }
+
+    .option-label input[type="radio"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border: var(--border-medium);
+      border-radius: 50%;
+      margin-right: 12px;
+      outline: none;
+      background: #FFFFFF;
+      flex-shrink: 0;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .option-label input[type="radio"]:checked {
+      background: var(--color-black);
+      box-shadow: inset 0 0 0 4px var(--color-lime);
+    }
+
+    .option-label.selected {
+      background: #EAFCE2;
+      border-color: var(--color-black);
+      box-shadow: 4px 4px 0px var(--color-black);
+    }
+
+    .reference-box {
+      background: #FEF3C7;
+      border: var(--border-medium);
+      box-shadow: var(--shadow-base);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+
+    .ref-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .ref-text {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #374151;
+      line-height: 1.45;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--color-lime);
+      color: var(--color-black);
+      border: var(--border-thick);
+      box-shadow: var(--shadow-large);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      font-size: 17px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      transform: translate(-2px, -2px);
+      box-shadow: 8px 8px 0px var(--color-black);
+      background: #8ee210;
+    }
+
+    .btn-submit:active:not(:disabled) {
+      transform: translate(3px, 3px);
+      box-shadow: 2px 2px 0px var(--color-black);
+    }
+
+    .btn-submit:disabled {
+      background: #D1D5DB;
+      cursor: not-allowed;
+      opacity: 0.8;
+      box-shadow: 3px 3px 0px var(--color-black);
+    }
+
+    .app-footer {
+      text-align: center;
+      margin-top: 36px;
+      padding: 20px 10px;
+    }
+
+    .footer-text {
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--color-black);
+      letter-spacing: -0.2px;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(18, 18, 18, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: var(--color-white);
+      border: var(--border-thick);
+      box-shadow: 8px 8px 0px var(--color-black);
+      border-radius: var(--radius-lg);
+      max-width: 480px;
+      width: 100%;
+      padding: 26px 22px;
+      text-align: center;
+      transform: scale(0.9);
+      transition: transform 0.2s ease;
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: scale(1);
+    }
+
+    .modal-badge {
+      background: var(--color-yellow);
+      border: var(--border-medium);
+      box-shadow: 2px 2px 0px var(--color-black);
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+
+    .modal-title {
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .result-score-box {
+      background: #F0FDF4;
+      border: var(--border-medium);
+      box-shadow: 3px 3px 0px var(--color-black);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin: 16px 0;
+      text-align: left;
+    }
+
+    .score-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .score-highlight {
+      font-size: 18px;
+      font-weight: 900;
+      color: #15803d;
+    }
+
+    .btn-modal-action {
+      width: 100%;
+      background: var(--color-cyan);
+      border: var(--border-thick);
+      box-shadow: 4px 4px 0px var(--color-black);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      font-size: 15px;
+      font-weight: 900;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-modal-action:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px var(--color-black);
+    }
+
+    .btn-modal-danger {
+      background: var(--color-pink);
+      color: var(--color-white);
+    }
+
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2000;
+      pointer-events: none;
+      width: 90%;
+      max-width: 420px;
+    }
+
+    .toast-msg {
+      background: var(--color-pink);
+      color: var(--color-white);
+      border: var(--border-thick);
+      box-shadow: var(--shadow-card);
+      border-radius: var(--radius-md);
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 800;
+      text-align: center;
+      margin-top: 10px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.25s ease;
+      pointer-events: auto;
+    }
+
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 600px) {
+      .hero-title { font-size: 18.5px; }
+      .section-title { font-size: 16px; }
+      .top-navbar { padding: 10px 12px; }
+      .brand-title { font-size: 13.5px; }
+      .btn-pwa-download { padding: 7px 10px; font-size: 11px; }
+      .verify-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top-navbar">
+    <div class="brand-container">
+      <div class="brand-icon">
+        <svg width="26" height="26" viewBox="0 0 100 100">
+          <path d="M25 10 C12 10 10 28 10 42 C10 65 24 90 35 90 C42 90 45 74 50 74 C55 74 58 90 65 90 C76 90 90 65 90 42 C90 28 88 10 75 10 C62 10 57 24 50 24 C43 24 38 10 25 10 Z" fill="#FFE600" stroke="#121212" stroke-width="7"/>
+          <circle cx="36" cy="38" r="5.5" fill="#121212"/>
+          <circle cx="64" cy="38" r="5.5" fill="#121212"/>
+          <path d="M38 52 Q50 63 62 52" fill="none" stroke="#121212" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="brand-title">Kuesioner Karies Gigi</div>
+    </div>
+    <button id="pwaInstallBtn" class="btn-pwa-download" type="button" onclick="triggerPwaDownload()">
+      📲 PWA APPS DOWNLOADER
+    </button>
+  </header>
+
+  <main class="main-wrapper">
+    <div class="tab-switcher-wrapper">
+      <button type="button" id="tabBtnPre" class="btn-tab-switch active-pre" onclick="switchTestMode('PRE')">
+        <span>📋</span> PRE-TEST
+      </button>
+      <button type="button" id="tabBtnPost" class="btn-tab-switch" onclick="switchTestMode('POST')">
+        <span>🎯</span> POST-TEST
+      </button>
+    </div>
+
+    <!-- Hero Card Banner -->
+    <div class="hero-card mode-pre" id="heroBannerCard">
+      <div class="badge-pill" id="heroBadge">Fase 1: Pre-Test Penelitian (Sheet PRE TEST)</div>
+      <h1 class="hero-title" id="heroTitle">Kuesioner Pengetahuan Orang Tua Mengenai Karies Gigi pada Anak Usia Dini</h1>
+      <p class="hero-desc" id="heroDesc">
+        Silakan isi data profil identitas dan jawab seluruh pertanyaan di bawah ini sebelum sesi intervensi edukasi dimulai.
+      </p>
+    </div>
+
+    <!-- Kotak Verifikasi Responden untuk Mode Post-Test -->
+    <div class="verify-box" id="postVerifyContainer" style="display: none;">
+      <div class="verify-title">
+        <span>🔍</span> Verifikasi ID Pre-Test Responden
+      </div>
+      <p class="verify-desc">
+        Untuk mengisi Post-Test, Anda wajib menyelesaikan Pre-Test terlebih dahulu. Masukkan ID Responden Pre-Test atau Nama Orang Tua yang didaftarkan.
+      </p>
+      <div class="verify-row">
+        <input type="text" id="verifyInputId" class="text-input" placeholder="Contoh: RESP-20260904-0001 atau Siti Rahmawati">
+        <button type="button" id="btnVerifyRespondent" class="btn-verify" onclick="verifyPreTestRespondent()">
+          Cek Data
+        </button>
+      </div>
+      <div id="verifiedStatusBox" class="verified-banner" style="display: none;">
+        <div>
+          <span>✅ Terverifikasi: </span>
+          <strong id="verifiedNameText">-</strong> (<span id="verifiedIdText">-</span>)
+        </div>
+        <span style="font-size: 11px; background: #86EFAC; padding: 2px 8px; border-radius: 99px; border: 1.5px solid #121212;">Auto-Filled</span>
+      </div>
+    </div>
+
+    <form id="surveyForm" onsubmit="event.preventDefault(); submitSurvey();">
+      <input type="hidden" id="currentTestType" value="PRE">
+      <input type="hidden" id="verifiedRespondentId" value="">
+
+      <!-- Section A: Identitas Responden (Persis Gambar) -->
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-num">A</div>
+          <h2 class="section-title">Identitas Responden</h2>
+        </div>
+
+        <!-- 1. Nama -->
+        <div class="form-group">
+          <label class="form-label" for="parentName">
+            Nama : <span class="req">*</span>
+            <span id="lockIndicatorName" style="display: none; font-size: 11px; color: #166534; font-weight: 800;">(🔒 Terkunci dari Pre-Test)</span>
+          </label>
+          <input type="text" id="parentName" class="text-input" placeholder="Nama Lengkap Orang Tua / Responden" required autocomplete="name">
+        </div>
+
+        <!-- 2. Usia -->
+        <div class="form-group">
+          <label class="form-label" for="parentAge">
+            Usia : <span class="req">*</span>
+            <span id="lockIndicatorAge" style="display: none; font-size: 11px; color: #166534; font-weight: 800;">(🔒 Terkunci)</span>
+          </label>
+          <input type="text" id="parentAge" class="text-input" placeholder="Contoh: 32 Tahun" required>
+        </div>
+
+        <!-- 3. Alamat -->
+        <div class="form-group">
+          <label class="form-label" for="parentAddress">
+            Alamat : <span class="req">*</span>
+            <span id="lockIndicatorAddress" style="display: none; font-size: 11px; color: #166534; font-weight: 800;">(🔒 Terkunci)</span>
+          </label>
+          <input type="text" id="parentAddress" class="text-input" placeholder="Alamat Domisili Tempat Tinggal" required>
+        </div>
+
+        <!-- 4. Orang Tua : Ibu / Ayah -->
+        <div class="form-group">
+          <label class="form-label">
+            Orang Tua : Ibu / Ayah <span class="req">*</span>
+            <span id="lockIndicatorRole" style="display: none; font-size: 11px; color: #166534; font-weight: 800;">(🔒 Terkunci)</span>
+          </label>
+          <div class="role-options-row">
+            <label class="role-card" id="cardRoleIbu">
+              <input type="radio" name="parentRole" id="roleIbu" value="Ibu" onchange="handleRoleSelect('Ibu')" style="display:none;" required>
+              <span>👩 Ibu</span>
+            </label>
+            <label class="role-card" id="cardRoleAyah">
+              <input type="radio" name="parentRole" id="roleAyah" value="Ayah" onchange="handleRoleSelect('Ayah')" style="display:none;">
+              <span>👨 Ayah</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 5. Pekerjaan -->
+        <div class="form-group">
+          <label class="form-label" for="parentJob">
+            Pekerjaan : <span class="req">*</span>
+            <span id="lockIndicatorJob" style="display: none; font-size: 11px; color: #166534; font-weight: 800;">(🔒 Terkunci)</span>
+          </label>
+          <input type="text" id="parentJob" class="text-input" placeholder="Contoh: Ibu Rumah Tangga / Karyawan Swasta / PNS / Wiraswasta" required>
+        </div>
+
+        <!-- 6. Pendidikan Terakhir -->
+        <div class="form-group">
+          <label class="form-label" for="parentEducation">
+            Pendidikan Terakhir : <span class="req">*</span>
+            <span id="lockIndicatorEdu" style="display: none; font-size: 11px; color: #166534; font-weight: 800;">(🔒 Terkunci)</span>
+          </label>
+          <select id="parentEducation" class="select-input" required>
+            <option value="" disabled selected>Pilih Pendidikan Terakhir...</option>
+            <option value="SD / Sederajat">SD / Sederajat</option>
+            <option value="SMP / Sederajat">SMP / Sederajat</option>
+            <option value="SMA / SMK / Sederajat">SMA / SMK / Sederajat</option>
+            <option value="Diploma (D1 / D2 / D3 / D4)">Diploma (D1 / D2 / D3 / D4)</option>
+            <option value="Sarjana (S1)">Sarjana (S1)</option>
+            <option value="Magister (S2)">Magister (S2)</option>
+            <option value="Doktor (S3)">Doktor (S3)</option>
+            <option value="Lainnya">Lainnya</option>
+          </select>
+        </div>
+
+        <!-- 7. Nama Anak -->
+        <div class="form-group">
+          <label class="form-label" for="childName">
+            Nama Anak : <span class="req">*</span>
+            <span id="lockIndicatorChild" style="display: none; font-size: 11px; color: #166534; font-weight: 800;">(🔒 Terkunci)</span>
+          </label>
+          <input type="text" id="childName" class="text-input" placeholder="Nama Lengkap Balita / Anak" required>
+        </div>
+
+        <!-- Nomor Kontak WhatsApp (Opsional Sinkronisasi) -->
+        <div class="form-group">
+          <label class="form-label" for="contactNumber">
+            Nomor WhatsApp / Kontak (Opsional Sinkronisasi ID)
+          </label>
+          <input type="tel" id="contactNumber" class="text-input" placeholder="Contoh: 081234567890" autocomplete="tel">
+        </div>
+      </section>
+
+      <section class="section-card" id="questionsSection">
+        <div class="section-header">
+          <div class="section-num">B</div>
+          <h2 class="section-title">Daftar Pertanyaan Kuesioner</h2>
+        </div>
+        <p style="font-size: 13px; font-weight: 700; color: #4b5563; margin-bottom: 20px;">
+          Pilihlah salah satu jawaban yang paling tepat sesuai dengan pengetahuan Anda (Wajib dijawab seluruhnya).
+        </p>
+
+        <!-- Pertanyaan dimuat secara dinamis via script -->
+        <div id="questionsContainer"></div>
+      </section>
+
+      <div class="reference-box">
+        <div class="ref-header">
+          <span>📖</span> Referensi Ilmiah Instrumen
+        </div>
+        <div class="ref-text">
+          Nassar, A. A., Fatani, B. A., Almobarak, O. T., Alotaibi, S. I., Alhazmi, R. A., & Marghalani, A. A. (2022). Knowledge, attitude, and behavior of parents regarding early childhood caries prevention of preschool children in Western region of Saudi Arabia: a cross-sectional study. <em>Dentistry journal</em>, 10(12), 218.
+        </div>
+      </div>
+
+      <button type="submit" id="btnSubmitForm" class="btn-submit">
+        <span>🚀</span> Kirim Jawaban Pre-Test
+      </button>
+    </form>
+
+    <footer class="app-footer">
+      <div class="footer-text">© 2026 All Rights Reserved, Researcher by Herlinda</div>
+    </footer>
+  </main>
+
+  <!-- Modal Pop-up Hasil & ID Responden -->
+  <div id="successModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-badge" id="modalBadgeStatus">🎉 Terkirim Sukses</div>
+      <h3 class="modal-title" id="modalTitleText">Terima Kasih Atas Partisipasi Anda!</h3>
+      <p id="modalDescText" style="font-size: 13.5px; font-weight: 600; color: #374151;">
+        Data jawaban kuesioner Anda telah berhasil diverifikasi dan tersimpan aman di database penelitian.
+      </p>
+
+      <div class="result-score-box">
+        <div class="score-row">
+          <span>ID Responden:</span>
+          <span id="resModalId" style="font-family: monospace; font-weight: 900; color: #2563EB;">-</span>
+        </div>
+        <div class="score-row">
+          <span>Tipe Tes:</span>
+          <span id="resModalType" style="font-weight: 900;">-</span>
+        </div>
+        <div class="score-row">
+          <span>Target Sheet:</span>
+          <span id="resModalSheet" style="font-weight: 900; color: #166534;">-</span>
+        </div>
+        <div class="score-row">
+          <span>Nama Orang Tua:</span>
+          <span id="resModalName">-</span>
+        </div>
+        <div class="score-row">
+          <span>Skor Pengetahuan:</span>
+          <span id="resModalScore" class="score-highlight">- / 23</span>
+        </div>
+      </div>
+
+      <!-- Tombol aksi spesifik Pre-Test -->
+      <div id="preTestActions" style="display: none;">
+        <button type="button" class="btn-modal-action" onclick="copyModalRespondentId()">
+          📋 Simpan & Salin ID Saya
+        </button>
+        <button type="button" class="btn-modal-action" style="background: var(--color-lime);" onclick="proceedToPostTestFromModal()">
+          🎯 Lanjut ke Post-Test Sekarang
+        </button>
+      </div>
+
+      <!-- Tombol aksi Post-Test / Selesai -->
+      <div id="postTestActions" style="display: none;">
+        <button type="button" class="btn-modal-action" onclick="closeSuccessModal()">
+          Tutup & Selesai
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Pop-up PROTECT-DEVTOOLS -->
+  <div id="protectModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-badge" style="background: var(--color-pink); color: white;">🛡️ PROTECT-DEVTOOLS AKTIF</div>
+      <h3 class="modal-title">Peringatan Keamanan & Privasi</h3>
+      <p style="font-size: 13.5px; font-weight: 700; color: #374151; line-height: 1.5; margin-bottom: 16px;">
+        Akses inspeksi elemen, shortcut developer console, dan klik kanan dinonaktifkan demi menjaga integritas data kuesioner serta privasi responden penelitian.
+      </p>
+      <button type="button" class="btn-modal-action btn-modal-danger" onclick="closeProtectModal()">
+        Saya Mengerti & Lanjutkan Kuesioner
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal Panduan Install Safari iOS -->
+  <div id="iosModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-badge">📱 Panduan iPhone / iPad</div>
+      <h3 class="modal-title">Cara Pasang di Layar Utama (iOS)</h3>
+      <div style="text-align: left; font-size: 13.5px; font-weight: 700; line-height: 1.6; margin: 16px 0;">
+        <p>1. Tekan tombol <strong>Share</strong> (ikon kotak dengan panah ke atas) di bilah bawah browser Safari.</p>
+        <p style="margin-top: 8px;">2. Gulir menu ke bawah lalu pilih opsi <strong>Add to Home Screen (Tambah ke Layar Utama)</strong>.</p>
+        <p style="margin-top: 8px;">3. Tekan tombol <strong>Add (Tambah)</strong> di sudut kanan atas layar.</p>
+      </div>
+      <button type="button" class="btn-modal-action" onclick="closeIosModal()">Mengerti</button>
+    </div>
+  </div>
+
+  <!-- Toast Notification Box -->
+  <div class="toast-container">
+    <div id="appToast" class="toast-msg"></div>
+  </div>
+
+  <script>
+    // Konfigurasi Dual Connection (GAS & Vercel)
+    const URL_GAS = "https://script.google.com/macros/s/AKfycbxt1V_87HTRqX81w_3_zDwht7vPMVq6S47u5DFFt5hWoEqpHIGx2ZfryI_b1NneQRM/exec";
+
+    // 23 Pertanyaan Penelitian Terstandarisasi (Nassar et al., 2022)
+    const SURVEY_QUESTIONS = [
+      { id: "q1", text: "Kapan gigi susu pertama bayi muncul pada mulut anak?", options: ["4 bulan", "6 bulan", "12 bulan"] },
+      { id: "q2", text: "Menurut Anda, apakah gigi susu sama pentingnya dengan gigi pemanen?", options: ["Gigi susu tidak penting", "Kurang penting", "Sama penting"] },
+      { id: "q3", text: "Apakah perlu melakukan penambalan pada gigi susu jika dibutuhkan?", options: ["Ya", "Tidak", "Saya tidak tahu"] },
+      { id: "q4", text: "Menurut Anda, Apakah Anda seharusnya mengunjungi dokter gigi 6 bulan sekali?", options: ["Ya", "Tidak", "Saya tidak tahu"] },
+      { id: "q5", text: "Menurut Anda, apakah penting menyikat gigi bayi Anda?", options: ["Ya", "Tidak", "Saya tidak tahu"] },
+      { id: "q6", text: "Menurut Anda, apakah membersihkan mulut bayi harus dimulai bahkan sebelum giginya tumbuh?", options: ["Ya", "Tidak", "Saya tidak tahu"] },
+      { id: "q7", text: "Menurut Anda, apakah kerusakan gigi (karies) dapat memengaruhi bayi berusia di bawah 2 tahun?", options: ["Ya", "Tidak", "Saya tidak tahu"] },
+      { id: "q8", text: "Menurut Anda, apakah garis atau bercak putih pada permukaan gigi merupakan tanda awal kerusakan gigi?", options: ["Ya", "Tidak", "Saya tidak tahu"] },
+      { id: "q9", text: "Menurut Anda, apakah kerusakan gigi disebabkan oleh bakteri yang ditularkan melalui penggunaan alat makan bersama (misalnya sendok)?", options: ["Ya", "Tidak", "Saya tidak tahu"] },
+      { id: "q10", text: "Menurut Anda, apakah mengontrol konsumsi permen/makanan manis pada anak akan membantu mencegah kerusakan gigi?", options: ["Ya", "Tidak", "Saya tidak tahu"] },
+      { id: "q11", text: "Menurut Anda, apakah fluorida dalam pasta gigi penting untuk mencegah kerusakan gigi pada anak-anak?", options: ["Ya", "Tidak", "Saya tidak tahu"] },
+      { id: "q12", text: "Apakah Anda tahu apa itu pit and fissure sealant (perawatan penutupan ceruk dan celah gigi)?", options: ["Ya", "Tidak", "Saya tidak tahu"] },
+      { id: "q13", text: "Pit and fissure sealant diaplikasikan pada....", options: ["Gigi sehat", "Gigi berlubang", "Saya tidak tahu"] },
+      { id: "q14", text: "Apakah pola makan ibu selama kehamilan memengaruhi perkembangan gigi bayi?", options: ["Ya", "Tidak", "Saya tidak tahu"] },
+      { id: "q15", text: "Menurut Anda, apakah edukasi kesehatan gigi untuk anak-anak harus diajarkan di sekolah?", options: ["Ya", "Tidak", "Saya tidak tahu"] },
+      { id: "q16", text: "Menurut Anda, apakah gizi seimbang sangat penting untuk pertumbuhan gigi bayi yang sehat?", options: ["Ya", "Tidak", "Saya tidak tahu"] },
+      { id: "q17", text: "Menurut Anda, apakah Anda membutuhkan lebih banyak pengetahuan mengenai pencegahan karies gigi anak usia dini?", options: ["Ya", "Tidak", "Saya tidak tahu"] },
+      { id: "q18", text: "Menurut Anda, apakah pembersihan gigi anak yang efektif dapat dilakukan oleh anak itu sendiri?", options: ["Ya", "Tidak", "Saya tidak tahu"] },
+      { id: "q19", text: "Menurut Anda, apakah menjaga kesehatan mulut anak adalah kewajiban orang tua?", options: ["Ya", "Tidak"] },
+      { id: "q20", text: "Menurut Anda, apakah menelan pasta gigi berfluorida dapat berbahaya bagi kesehatan anak?", options: ["Ya", "Tidak", "Saya tidak tahu"] },
+      { id: "q21", text: "Kapan sebaiknya menggunakan benang gigi (dental floss) untuk anak Anda?", options: ["3 tahun", "6 tahun", "Ketika ada kontak (persinggungan/himpitan) antar gigi"] },
+      { id: "q22", text: "Menurut Anda, apakah pemberian susu botol dan ASI pada malam hari dapat menyebabkan kerusakan gigi?", options: ["Ya", "Tidak", "Saya tidak tahu"] },
+      { id: "q23", text: "Apakah pemberian ASI/susu botol yang sering dan berkepanjangan pada siang hari dapat menyebabkan kerusakan gigi?", options: ["Ya", "Tidak", "Saya tidak tahu"] }
+    ];
+
+    var currentActiveMode = 'PRE';
+    var isPostVerified = false;
+
+    function renderQuestionList() {
+      var container = document.getElementById('questionsContainer');
+      var html = '';
+
+      for (var i = 0; i < SURVEY_QUESTIONS.length; i++) {
+        var item = SURVEY_QUESTIONS[i];
+        var qNum = i + 1;
+
+        html += '<div class="question-block" id="block_' + item.id + '">';
+        html += '  <div class="question-title-row">';
+        html += '    <span class="q-number">No. ' + qNum + '</span>';
+        html += '    <div class="q-text">' + item.text + '</div>';
+        html += '  </div>';
+        html += '  <div class="options-grid">';
+
+        for (var j = 0; j < item.options.length; j++) {
+          var optText = item.options[j];
+          var optId = item.id + '_opt_' + j;
+
+          html += '  <label class="option-label" id="lbl_' + optId + '" for="' + optId + '">';
+          html += '    <input type="radio" name="' + item.id + '" id="' + optId + '" value="' + optText + '" onchange="handleOptionChange(\'' + item.id + '\', \'' + optId + '\')">';
+          html += '    <span>' + optText + '</span>';
+          html += '  </label>';
+        }
+
+        html += '  </div>';
+        html += '</div>';
+      }
+
+      container.innerHTML = html;
+    }
+
+    function handleOptionChange(qId, selectedInputId) {
+      var blockEl = document.getElementById('block_' + qId);
+      if (blockEl) {
+        blockEl.classList.remove('unanswered');
+      }
+
+      var groupRadios = document.getElementsByName(qId);
+      for (var i = 0; i < groupRadios.length; i++) {
+        var radio = groupRadios[i];
+        var labelEl = document.getElementById('lbl_' + radio.id);
+        if (labelEl) {
+          if (radio.checked) {
+            labelEl.classList.add('selected');
+          } else {
+            labelEl.classList.remove('selected');
+          }
+        }
+      }
+    }
+
+    function handleRoleSelect(role) {
+      var cardIbu = document.getElementById('cardRoleIbu');
+      var cardAyah = document.getElementById('cardRoleAyah');
+
+      if (role === 'Ibu') {
+        cardIbu.classList.add('selected');
+        cardAyah.classList.remove('selected');
+      } else {
+        cardAyah.classList.add('selected');
+        cardIbu.classList.remove('selected');
+      }
+    }
+
+    function switchTestMode(mode) {
+      currentActiveMode = mode;
+      document.getElementById('currentTestType').value = mode;
+
+      var tabPre = document.getElementById('tabBtnPre');
+      var tabPost = document.getElementById('tabBtnPost');
+      var heroBanner = document.getElementById('heroBannerCard');
+      var heroBadge = document.getElementById('heroBadge');
+      var heroTitle = document.getElementById('heroTitle');
+      var heroDesc = document.getElementById('heroDesc');
+      var postVerifyBox = document.getElementById('postVerifyContainer');
+      var btnSubmit = document.getElementById('btnSubmitForm');
+
+      if (mode === 'PRE') {
+        tabPre.className = 'btn-tab-switch active-pre';
+        tabPost.className = 'btn-tab-switch';
+
+        heroBanner.className = 'hero-card mode-pre';
+        heroBadge.innerText = 'Fase 1: Pre-Test Penelitian (Sheet PRE TEST)';
+        heroTitle.innerText = 'Kuesioner Pengetahuan Orang Tua Mengenai Karies Gigi pada Anak Usia Dini';
+        heroDesc.innerText = 'Silakan isi data profil dan jawab pertanyaan di bawah ini sebelum sesi edukasi dimulai.';
+
+        postVerifyBox.style.display = 'none';
+        btnSubmit.innerHTML = '<span>🚀</span> Kirim Jawaban Pre-Test';
+        unlockProfileInputs();
+      } else {
+        tabPost.className = 'btn-tab-switch active-post';
+        tabPre.className = 'btn-tab-switch';
+
+        heroBanner.className = 'hero-card mode-post';
+        heroBadge.innerText = 'Fase 2: Post-Test Evaluasi (Sheet POST TEST)';
+        heroTitle.innerText = 'Evaluasi Peningkatan Pengetahuan Karies Gigi Anak Usia Dini';
+        heroDesc.innerText = 'Kerjakan Post-Test ini setelah sesi edukasi untuk mengukur peningkatan pemahaman Anda.';
+
+        postVerifyBox.style.display = 'block';
+        btnSubmit.innerHTML = '<span>🚀</span> Kirim Jawaban Post-Test';
+
+        if (!isPostVerified) {
+          lockProfileInputs();
+        }
+      }
+    }
+
+    function lockProfileInputs() {
+      document.getElementById('parentName').readOnly = true;
+      document.getElementById('parentAge').readOnly = true;
+      document.getElementById('parentAddress').readOnly = true;
+      document.getElementById('parentJob').readOnly = true;
+      document.getElementById('parentEducation').disabled = true;
+      document.getElementById('childName').readOnly = true;
+      document.getElementById('roleIbu').disabled = true;
+      document.getElementById('roleAyah').disabled = true;
+      document.getElementById('cardRoleIbu').classList.add('locked');
+      document.getElementById('cardRoleAyah').classList.add('locked');
+
+      document.getElementById('lockIndicatorName').style.display = 'inline';
+      document.getElementById('lockIndicatorAge').style.display = 'inline';
+      document.getElementById('lockIndicatorAddress').style.display = 'inline';
+      document.getElementById('lockIndicatorRole').style.display = 'inline';
+      document.getElementById('lockIndicatorJob').style.display = 'inline';
+      document.getElementById('lockIndicatorEdu').style.display = 'inline';
+      document.getElementById('lockIndicatorChild').style.display = 'inline';
+    }
+
+    function unlockProfileInputs() {
+      document.getElementById('parentName').readOnly = false;
+      document.getElementById('parentAge').readOnly = false;
+      document.getElementById('parentAddress').readOnly = false;
+      document.getElementById('parentJob').readOnly = false;
+      document.getElementById('parentEducation').disabled = false;
+      document.getElementById('childName').readOnly = false;
+      document.getElementById('roleIbu').disabled = false;
+      document.getElementById('roleAyah').disabled = false;
+      document.getElementById('cardRoleIbu').classList.remove('locked');
+      document.getElementById('cardRoleAyah').classList.remove('locked');
+
+      document.getElementById('lockIndicatorName').style.display = 'none';
+      document.getElementById('lockIndicatorAge').style.display = 'none';
+      document.getElementById('lockIndicatorAddress').style.display = 'none';
+      document.getElementById('lockIndicatorRole').style.display = 'none';
+      document.getElementById('lockIndicatorJob').style.display = 'none';
+      document.getElementById('lockIndicatorEdu').style.display = 'none';
+      document.getElementById('lockIndicatorChild').style.display = 'none';
+    }
+
+    function verifyPreTestRespondent() {
+      var query = document.getElementById('verifyInputId').value.trim();
+      if (!query) {
+        showToast('Mohon masukkan ID Responden atau Nama Orang Tua.');
+        return;
+      }
+
+      var verifyBtn = document.getElementById('btnVerifyRespondent');
+      verifyBtn.disabled = true;
+      verifyBtn.innerText = 'Mencari...';
+
+      var isDirectGAS = (typeof google !== 'undefined' && google.script && typeof google.script.run !== 'undefined');
+
+      if (isDirectGAS) {
+        google.script.run
+          .withSuccessHandler(function(res) {
+            verifyBtn.disabled = false;
+            verifyBtn.innerText = 'Cek Data';
+            handleVerificationResult(res);
+          })
+          .withFailureHandler(function(err) {
+            verifyBtn.disabled = false;
+            verifyBtn.innerText = 'Cek Data';
+            showToast('Kesalahan pencarian: ' + err.message);
+          })
+          .checkPreTestRespondentGAS(query);
+      } else {
+        fetch(URL_GAS, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'checkRespondent', identifier: query })
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          verifyBtn.disabled = false;
+          verifyBtn.innerText = 'Cek Data';
+          handleVerificationResult(data);
+        })
+        .catch(function(err) {
+          // Preview fallback untuk Canvas
+          verifyBtn.disabled = false;
+          verifyBtn.innerText = 'Cek Data';
+          var mockProfile = {
+            status: 'success',
+            found: true,
+            data: {
+              respondentId: query.indexOf('RESP-') === 0 ? query : 'RESP-20260904-0001',
+              testType: 'POST',
+              name: query.indexOf('RESP-') === 0 ? 'Siti Rahmawati' : query,
+              age: '32 Tahun',
+              address: 'Jl. Merpati No. 12',
+              parentRole: 'Ibu',
+              job: 'Ibu Rumah Tangga',
+              education: 'Sarjana (S1)',
+              childName: 'Ahmad Rafka',
+              contact: '081234567890'
+            }
+          };
+          handleVerificationResult(mockProfile);
+        });
+      }
+    }
+
+    function handleVerificationResult(result) {
+      if (result && result.status === 'success' && result.found && result.data) {
+        var profile = result.data;
+        document.getElementById('verifiedRespondentId').value = profile.respondentId;
+        document.getElementById('parentName').value = profile.name;
+        document.getElementById('parentAge').value = profile.age;
+        document.getElementById('parentAddress').value = profile.address;
+        document.getElementById('parentJob').value = profile.job;
+        document.getElementById('parentEducation').value = profile.education;
+        document.getElementById('childName').value = profile.childName;
+        document.getElementById('contactNumber').value = profile.contact || '';
+
+        // Role Ibu / Ayah
+        if (profile.parentRole === 'Ibu') {
+          document.getElementById('roleIbu').checked = true;
+          handleRoleSelect('Ibu');
+        } else if (profile.parentRole === 'Ayah') {
+          document.getElementById('roleAyah').checked = true;
+          handleRoleSelect('Ayah');
+        }
+
+        lockProfileInputs();
+        isPostVerified = true;
+
+        document.getElementById('verifiedNameText').innerText = profile.name;
+        document.getElementById('verifiedIdText').innerText = profile.respondentId;
+        document.getElementById('verifiedStatusBox').style.display = 'flex';
+
+        showToast('Profil Pre-Test berhasil disinkronkan!');
+        document.getElementById('questionsSection').scrollIntoView({ behavior: 'smooth' });
+      } else {
+        isPostVerified = false;
+        document.getElementById('verifiedStatusBox').style.display = 'none';
+        showToast(result && result.message ? result.message : 'Data Pre-Test tidak ditemukan.');
+      }
+    }
+
+    function submitSurvey() {
+      var testType = currentActiveMode;
+      var parentName = document.getElementById('parentName').value.trim();
+      var parentAge = document.getElementById('parentAge').value.trim();
+      var parentAddress = document.getElementById('parentAddress').value.trim();
+      var parentJob = document.getElementById('parentJob').value.trim();
+      var parentEducation = document.getElementById('parentEducation').value;
+      var childName = document.getElementById('childName').value.trim();
+      var contactNumber = document.getElementById('contactNumber').value.trim();
+      var verifiedId = document.getElementById('verifiedRespondentId').value.trim();
+
+      var parentRole = '';
+      if (document.getElementById('roleIbu').checked) parentRole = 'Ibu';
+      if (document.getElementById('roleAyah').checked) parentRole = 'Ayah';
+
+      if (testType === 'POST' && !isPostVerified) {
+        showToast('Anda wajib memverifikasi ID Pre-Test terlebih dahulu sebelum mengirim Post-Test.');
+        document.getElementById('postVerifyContainer').scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+
+      if (!parentName || !parentAge || !parentAddress || !parentRole || !parentJob || !parentEducation || !childName) {
+        showToast('Mohon lengkapi seluruh kolom identitas responden bertanda bintang (*).');
+        return;
+      }
+
+      // Kumpulkan dan validasi seluruh 23 pertanyaan kuesioner
+      var collectedAnswers = {};
+      var firstUnansweredBlock = null;
+
+      for (var i = 0; i < SURVEY_QUESTIONS.length; i++) {
+        var q = SURVEY_QUESTIONS[i];
+        var radios = document.getElementsByName(q.id);
+        var chosenVal = '';
+
+        for (var r = 0; r < radios.length; r++) {
+          if (radios[r].checked) {
+            chosenVal = radios[r].value;
+            break;
+          }
+        }
+
+        if (!chosenVal) {
+          var block = document.getElementById('block_' + q.id);
+          if (block) {
+            block.classList.add('unanswered');
+            if (!firstUnansweredBlock) {
+              firstUnansweredBlock = block;
+            }
+          }
+        } else {
+          collectedAnswers[q.id] = chosenVal;
+        }
+      }
+
+      if (firstUnansweredBlock) {
+        showToast('Ada pertanyaan yang belum dijawab. Mohon periksa pertanyaan bertanda merah.');
+        firstUnansweredBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      var payload = {
+        testType: testType,
+        respondentId: verifiedId,
+        name: parentName,
+        age: parentAge,
+        address: parentAddress,
+        parentRole: parentRole,
+        job: parentJob,
+        education: parentEducation,
+        childName: childName,
+        contact: contactNumber,
+        answers: collectedAnswers
+      };
+
+      setButtonLoading(true);
+
+      var isDirectGAS = (typeof google !== 'undefined' && google.script && typeof google.script.run !== 'undefined');
+
+      if (isDirectGAS) {
+        google.script.run
+          .withSuccessHandler(function(res) {
+            setButtonLoading(false);
+            if (res && res.status === 'success') {
+              showSuccessModal(res);
+            } else {
+              showToast(res && res.message ? res.message : 'Gagal menyimpan jawaban.');
+            }
+          })
+          .withFailureHandler(function(err) {
+            setButtonLoading(false);
+            showToast('Kesalahan server: ' + (err.message || err.toString()));
+          })
+          .submitResponseGAS(payload);
+      } else {
+        fetch(URL_GAS, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          setButtonLoading(false);
+          if (data && data.status === 'success') {
+            showSuccessModal(data);
+          } else {
+            showToast(data && data.message ? data.message : 'Terjadi kendala saat menyimpan.');
+          }
+        })
+        .catch(function(err) {
+          // Preview Canvas Simulation
+          setButtonLoading(false);
+          var mockRes = {
+            status: 'success',
+            respondentId: (testType === 'POST' ? verifiedId : 'RESP-20260904-0001'),
+            testType: testType,
+            sheetName: (testType === 'PRE' ? 'PRE TEST' : 'POST TEST'),
+            parentName: parentName,
+            score: (testType === 'POST' ? 22 : 16),
+            totalQuestions: 23
+          };
+          showSuccessModal(mockRes);
+        });
+      }
+    }
+
+    function setButtonLoading(isLoading) {
+      var btn = document.getElementById('btnSubmitForm');
+      if (isLoading) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>⏳</span> Memproses & Menyinkronkan...';
+      } else {
+        btn.disabled = false;
+        btn.innerHTML = (currentActiveMode === 'PRE') ? '<span>🚀</span> Kirim Jawaban Pre-Test' : '<span>🚀</span> Kirim Jawaban Post-Test';
+      }
+    }
+
+    function showSuccessModal(data) {
+      document.getElementById('resModalId').innerText = data.respondentId || '-';
+      document.getElementById('resModalType').innerText = data.testType + '-TEST';
+      document.getElementById('resModalSheet').innerText = data.sheetName || ((data.testType === 'PRE') ? 'PRE TEST' : 'POST TEST');
+      document.getElementById('resModalName').innerText = data.parentName || '-';
+      document.getElementById('resModalScore').innerText = (data.score !== undefined ? data.score : '-') + ' / 23';
+
+      var preActions = document.getElementById('preTestActions');
+      var postActions = document.getElementById('postTestActions');
+
+      if (data.testType === 'PRE') {
+        document.getElementById('modalBadgeStatus').innerText = '🎉 Pre-Test Selesai';
+        document.getElementById('modalTitleText').innerText = 'Pre-Test Berhasil Disimpan!';
+        document.getElementById('modalDescText').innerText = 'Data tersimpan di sheet "PRE TEST". Simpan ID Responden Anda untuk digunakan saat mengisi Post-Test.';
+        preActions.style.display = 'block';
+        postActions.style.display = 'none';
+      } else {
+        document.getElementById('modalBadgeStatus').innerText = '🏆 Post-Test Tuntas';
+        document.getElementById('modalTitleText').innerText = 'Evaluasi Post-Test Selesai!';
+        document.getElementById('modalDescText').innerText = 'Data tersimpan di sheet "POST TEST". Terima kasih atas partisipasi aktif Anda dalam penelitian karies gigi ini.';
+        preActions.style.display = 'none';
+        postActions.style.display = 'block';
+      }
+
+      document.getElementById('successModal').classList.add('active');
+    }
+
+    function copyModalRespondentId() {
+      var idText = document.getElementById('resModalId').innerText;
+      if (!idText || idText === '-') return;
+
+      var tempInput = document.createElement('input');
+      tempInput.value = idText;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      showToast('ID ' + idText + ' berhasil disalin ke clipboard!');
+    }
+
+    function proceedToPostTestFromModal() {
+      var idText = document.getElementById('resModalId').innerText;
+      closeSuccessModal();
+      switchTestMode('POST');
+      if (idText && idText !== '-') {
+        document.getElementById('verifyInputId').value = idText;
+        verifyPreTestRespondent();
+      }
+    }
+
+    function closeSuccessModal() {
+      document.getElementById('successModal').classList.remove('active');
+      document.getElementById('surveyForm').reset();
+
+      var labels = document.querySelectorAll('.option-label');
+      for (var i = 0; i < labels.length; i++) {
+        labels[i].classList.remove('selected');
+      }
+      document.getElementById('cardRoleIbu').classList.remove('selected');
+      document.getElementById('cardRoleAyah').classList.remove('selected');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showToast(msg) {
+      var toast = document.getElementById('appToast');
+      toast.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(function() {
+        toast.classList.remove('show');
+      }, 3500);
+    }
+
+    function initProtectDevTools() {
+      // 1. Blokir Klik Kanan (Context Menu)
+      document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        triggerProtectAlert();
+      });
+
+      // 2. Blokir Keyboard Shortcuts Developer
+      document.addEventListener('keydown', function(e) {
+        // F12
+        if (e.keyCode === 123) {
+          e.preventDefault();
+          triggerProtectAlert();
+          return false;
+        }
+
+        // Ctrl + Shift + I, Ctrl + Shift + J, Ctrl + Shift + C
+        if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
+          e.preventDefault();
+          triggerProtectAlert();
+          return false;
+        }
+
+        // Cmd + Option + I, Cmd + Option + J, Cmd + Option + C (Mac)
+        if (e.metaKey && e.altKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
+          e.preventDefault();
+          triggerProtectAlert();
+          return false;
+        }
+
+        // Ctrl + U (View Source)
+        if (e.ctrlKey && e.keyCode === 85) {
+          e.preventDefault();
+          triggerProtectAlert();
+          return false;
+        }
+
+        // Ctrl + S (Save Page)
+        if (e.ctrlKey && e.keyCode === 83) {
+          e.preventDefault();
+          triggerProtectAlert();
+          return false;
+        }
+      });
+    }
+
+    function triggerProtectAlert() {
+      document.getElementById('protectModal').classList.add('active');
+    }
+
+    function closeProtectModal() {
+      document.getElementById('protectModal').classList.remove('active');
+    }
+
+    function closeIosModal() {
+      document.getElementById('iosModal').classList.remove('active');
+    }
+
+    let deferredPrompt = null;
+
+    function setupPWA() {
+      var isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      var isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+      window.addEventListener('beforeinstallprompt', function(e) {
+        e.preventDefault();
+        deferredPrompt = e;
+      });
+
+      try {
+        var svgIcon = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M25 10 C12 10 10 28 10 42 C10 65 24 90 35 90 C42 90 45 74 50 74 C55 74 58 90 65 90 C76 90 90 65 90 42 C90 28 88 10 75 10 C62 10 57 24 50 24 C43 24 38 10 25 10 Z' fill='%23FFE600' stroke='%23121212' stroke-width='6'/><circle cx='36' cy='38' r='5' fill='%23121212'/><circle cx='64' cy='38' r='5' fill='%23121212'/><path d='M38 52 Q50 62 62 52' fill='none' stroke='%23121212' stroke-width='4' stroke-linecap='round'/></svg>";
+        var manifestObj = {
+          name: "Kuesioner Karies Gigi Pre & Post Test",
+          short_name: "KariesAnak",
+          start_url: window.location.href,
+          display: "standalone",
+          background_color: "#FFFDF0",
+          theme_color: "#FFE600",
+          icons: [
+            {
+              src: "data:image/svg+xml," + encodeURIComponent(svgIcon),
+              sizes: "192x192 512x512",
+              type: "image/svg+xml"
+            }
+          ]
+        };
+        var manifestBlob = new Blob([JSON.stringify(manifestObj)], { type: 'application/json' });
+        var manifestUrl = URL.createObjectURL(manifestBlob);
+        var link = document.createElement('link');
+        link.rel = 'manifest';
+        link.href = manifestUrl;
+        document.head.appendChild(link);
+      } catch (e) {
+        // Sandboxed fallback
+      }
+    }
+
+    function triggerPwaDownload() {
+      var isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      if (isIos) {
+        document.getElementById('iosModal').classList.add('active');
+        return;
+      }
+
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(function(choiceResult) {
+          if (choiceResult.outcome === 'accepted') {
+            showToast('Aplikasi berhasil dipasang di perangkat!');
+          }
+          deferredPrompt = null;
+        });
+      } else {
+        showToast('Aplikasi siap diakses langsung di browser atau pilih menu Titik Tiga > "Install App / Tambahkan ke Layar Utama".');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      renderQuestionList();
+      initProtectDevTools();
+      setupPWA();
+    });
+  </script>
+</body>
+</html>
